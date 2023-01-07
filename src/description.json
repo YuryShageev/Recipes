@@ -2,7 +2,7 @@
   {
     "name": "Рецепты",
     "function": "научить готовить",
-    "technology": "С помощью Spring и Maven",
+    "technology": "С помощью фреймворков и библиотек Spring и Maven",
     "language": "Java"
   }
 ]

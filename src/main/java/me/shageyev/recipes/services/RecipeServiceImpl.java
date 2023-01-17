@@ -1,10 +1,12 @@
 package me.shageyev.recipes.services;
 
 import me.shageyev.recipes.model.Recipe;
+import org.springframework.stereotype.Service;
 
 import java.util.Map;
 import java.util.TreeMap;
 
+@Service
 public class RecipeServiceImpl implements RecipeService {
 
     private static final Map<Long, Recipe> recipeMap = new TreeMap<>();

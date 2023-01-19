@@ -1,5 +1,6 @@
 package me.shageyev.recipes.services;
 
+import me.shageyev.recipes.model.Ingredients;
 import me.shageyev.recipes.model.Recipe;
 import org.springframework.stereotype.Service;
 
@@ -10,12 +11,17 @@ import java.util.TreeMap;
 
 @Service
 public class RecipeServiceImpl implements RecipeService {
-    private IngredientsService ingredientsService;
 
     private static final Map<Integer, Recipe> recipeMap = new TreeMap<>();
+    private static final List<Ingredients> ingredientsList = new ArrayList<>();
+    private static final List<String> cookingSteps = new ArrayList<>();
     private static Integer recipeId = 0;
     @Override
-    public void addRecipe(Recipe recipe) {
+    public void addRecipe(String name, int cookingTime) {
+        String cookSteps = "Здесь временно ничего нет";
+        cookingSteps.add(cookSteps);
+
+        Recipe recipe = new Recipe(name, cookingTime, ingredientsList, cookingSteps);
         recipeMap.put(recipeId++, recipe);
         System.out.println(recipeMap);
     }
@@ -30,9 +36,13 @@ public class RecipeServiceImpl implements RecipeService {
     }
 
     @Override
-    public Map getAllRecipes() {
-        Map<Integer, Recipe> integerRecipeMap;
-        integerRecipeMap = recipeMap;
-        return integerRecipeMap;
+    public Map<Integer, Recipe> getAllRecipes() {
+
+        return recipeMap;
+    }
+
+    @Override
+    public void addIngredientsToRecipe(Ingredients ingredient) {
+         ingredientsList.add(ingredient);
     }
 }

@@ -5,11 +5,7 @@ import me.shageyev.recipes.model.Recipe;
 import me.shageyev.recipes.services.IngredientsService;
 import me.shageyev.recipes.services.RecipeService;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.web.bind.annotation.*;
 
 
 @RestController
@@ -33,10 +29,11 @@ public class RecipeController {
         return "Вы добавили рецепт " + recipeService.getAllRecipes();
     }
 
-    @GetMapping()
-    public Recipe getRecipe(@RequestParam int id) {
+    @GetMapping("/{id}")
+    public Recipe getRecipeById(@PathVariable int id) {
         return recipeService.getRecipe(id);
     }
+
 
 
 }

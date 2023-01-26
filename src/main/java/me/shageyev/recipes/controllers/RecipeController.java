@@ -5,7 +5,6 @@ import me.shageyev.recipes.model.Recipe;
 import me.shageyev.recipes.services.IngredientsService;
 import me.shageyev.recipes.services.RecipeService;
 
-import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,9 +23,9 @@ public class RecipeController {
 
 
     @PostMapping("/add")
-    public ResponseEntity<Integer> addRecipe(@RequestBody Recipe recipe) {
-        int id = recipeService.addRecipe(recipe);
-        return ResponseEntity.ok(id);
+    Recipe addRecipe(@RequestBody Recipe recipe) {
+
+        return recipeService.addRecipe(recipe);
     }
 
     @GetMapping("/{id}")

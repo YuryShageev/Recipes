@@ -4,10 +4,7 @@ import me.shageyev.recipes.model.Ingredients;
 import me.shageyev.recipes.model.Recipe;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 
 @Service
 public class RecipeServiceImpl implements RecipeService {
@@ -17,10 +14,9 @@ public class RecipeServiceImpl implements RecipeService {
     private static final List<String> cookingSteps = new ArrayList<>();
     private static Integer recipeId = 0;
     @Override
-    public int addRecipe(Recipe recipe) {
-        recipeMap.put(recipeId, recipe);
-        System.out.println(recipeMap);
-        return recipeId++;
+    public Recipe addRecipe(Recipe recipe) {
+        recipeMap.put(recipeId++, recipe);
+        return recipe;
     }
 
     @Override
@@ -33,9 +29,9 @@ public class RecipeServiceImpl implements RecipeService {
     }
 
     @Override
-    public Map<Integer, Recipe> getAllRecipes() {
+    public Collection<Recipe> getAllRecipes() {
 
-        return recipeMap;
+        return recipeMap.values();
     }
 
     @Override

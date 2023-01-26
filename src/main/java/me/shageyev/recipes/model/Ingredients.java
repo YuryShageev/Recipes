@@ -13,8 +13,8 @@ import javax.validation.constraints.Positive;
 public class Ingredients {
 
     @NotBlank(message = "Name is necessary")
-    private String name;
+    private String productName;
     @Positive
-    private int quantity;
+    private int amount;
     private String measuringUnit;
 }

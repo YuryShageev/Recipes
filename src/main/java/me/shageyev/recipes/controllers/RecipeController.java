@@ -5,6 +5,8 @@ import me.shageyev.recipes.model.Recipe;
 import me.shageyev.recipes.services.IngredientsService;
 import me.shageyev.recipes.services.RecipeService;
 
+import org.springframework.http.RequestEntity;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -21,12 +23,10 @@ public class RecipeController {
     }
 
 
-
-    @GetMapping("/add")
-    public String addRecipe(@RequestParam String name, @RequestParam int cookingTime) {
-        //Надо грамотно сделать добавление рецепта - здесь остановился
-        recipeService.addRecipe(name, cookingTime);
-        return "Вы добавили рецепт " + recipeService.getAllRecipes();
+    @PostMapping("/add")
+    public ResponseEntity<Integer> addRecipe(@RequestBody Recipe recipe) {
+        int id = recipeService.addRecipe(recipe);
+        return ResponseEntity.ok(id);
     }
 
     @GetMapping("/{id}")
@@ -35,5 +35,20 @@ public class RecipeController {
     }
 
 
+    @PutMapping("/{id}")
+    public ResponseEntity<Recipe> editRecipe(@PathVariable int id, @RequestBody Recipe recipe) {
+        Recipe recipe1 = recipeService.editRecipeById(id, recipe);
+        if (recipe1 == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(recipe1);
+    }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteRecipeById(@PathVariable int id) {
+        if (recipeService.deleteRecipe(id)) {
+            return ResponseEntity.ok().build();
+        }
+        return ResponseEntity.notFound().build();
+    }
 }

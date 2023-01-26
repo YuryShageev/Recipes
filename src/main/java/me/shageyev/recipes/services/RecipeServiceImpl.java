@@ -17,13 +17,10 @@ public class RecipeServiceImpl implements RecipeService {
     private static final List<String> cookingSteps = new ArrayList<>();
     private static Integer recipeId = 0;
     @Override
-    public void addRecipe(String name, int cookingTime) {
-        String cookSteps = "Здесь временно ничего нет";
-        cookingSteps.add(cookSteps);
-
-        Recipe recipe = new Recipe(name, cookingTime, ingredientsList, cookingSteps);
-        recipeMap.put(recipeId++, recipe);
+    public int addRecipe(Recipe recipe) {
+        recipeMap.put(recipeId, recipe);
         System.out.println(recipeMap);
+        return recipeId++;
     }
 
     @Override
@@ -39,6 +36,28 @@ public class RecipeServiceImpl implements RecipeService {
     public Map<Integer, Recipe> getAllRecipes() {
 
         return recipeMap;
+    }
+
+    @Override
+    public Recipe editRecipeById(int id, Recipe recipe) {
+        for (Map.Entry<Integer, Recipe> recipeEntry : recipeMap.entrySet()) {
+            if (recipeEntry.getKey().equals(id)) {
+                recipeMap.put(id, recipe);
+                return recipeMap.get(id);
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public boolean deleteRecipe(int id) {
+        for (Map.Entry<Integer, Recipe> recipeEntry : recipeMap.entrySet()) {
+            if (recipeEntry.getKey().equals(id)) {
+                recipeMap.remove(id);
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override

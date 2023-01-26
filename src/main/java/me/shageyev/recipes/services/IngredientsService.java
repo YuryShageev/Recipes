@@ -7,11 +7,17 @@ import java.util.List;
 public interface IngredientsService {
 
 
-    void addIngredient(String name, int quantity, String measuringUnit);
 
 //    void addIngredients(String name, int quantity, String measuringUnit);
+
+    int addIngredient(Ingredients ingredients);
 
     Ingredients getIngredients(int ingredientId);
 
     List<Ingredients> getAllIngredients();
+
+
+    Ingredients editIngredientsById(int id, Ingredients ingredients);
+
+    boolean deleteIngredientsById(int id);
 }

@@ -8,11 +8,15 @@ import java.util.Map;
 public interface RecipeService {
 
 
-    void addRecipe(String name, int cookingTime);
+    int addRecipe(Recipe recipe);
 
     Recipe getRecipe(int recipeId);
 
     Map<Integer, Recipe> getAllRecipes();
+
+    Recipe editRecipeById(int id, Recipe recipe);
+
+    boolean deleteRecipe(int id);
 
     void addIngredientsToRecipe(Ingredients ingredients);
 }

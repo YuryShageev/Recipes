@@ -8,7 +8,6 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Positive;
 import java.util.List;
-import java.util.Map;
 
 @Data
 @AllArgsConstructor
@@ -21,6 +20,5 @@ public class Recipe {
     private int cookingTime;
     @NotEmpty
     private List<Ingredients> ingredients;
-    @NotEmpty
     private List<String> cookingSteps;
 }

@@ -8,7 +8,6 @@ public interface IngredientsService {
 
 
 
-//    void addIngredients(String name, int quantity, String measuringUnit);
 
     int addIngredient(Ingredients ingredients);
 

@@ -20,20 +20,11 @@ public class IngredientsServiceImpl implements IngredientsService{
         this.recipeService = recipeService;
     }
 @Override
-    public void addIngredient(String name, int quantity, String measuringUnit) {
-    Ingredients ingredients = new Ingredients(name, quantity, measuringUnit);
+    public int addIngredient(Ingredients ingredients) {
         recipeService.addIngredientsToRecipe(ingredients);
-        ingredient.put(ingredientId++, ingredients);
-        System.out.println(ingredient);
+        ingredient.put(ingredientId, ingredients);
+        return ingredientId++;
     }
-
-//    @Override
-//    public void addIngredients(String name, int quantity, String measuringUnit) {
-//        Ingredients ingredients = new Ingredients(name, quantity, measuringUnit);
-//        recipeService.addIngredientsToRecipe(ingredients);
-//        ingredient.put(ingredientId++, ingredients);
-//        System.out.println(ingredient);
-//    }
 
     @Override
     public Ingredients getIngredients(int ingredientId) {
@@ -48,6 +39,27 @@ public class IngredientsServiceImpl implements IngredientsService{
             ingredientsList.add(ingredients);
         }
         return ingredientsList;
+    }
+
+    @Override
+    public Ingredients editIngredientsById(int id, Ingredients ingredients) {
+        for (Map.Entry<Integer, Ingredients> ingredientsEntry : ingredient.entrySet()) {
+            if (ingredientsEntry.getKey().equals(id)) {
+                ingredient.put(id, ingredients);
+                return ingredient.get(id);
+            }
+        }
+        return null;
+    }
+    @Override
+    public boolean deleteIngredientsById(int id) {
+        for (Map.Entry<Integer, Ingredients> ingredientsEntry : ingredient.entrySet()) {
+            if (ingredientsEntry.getKey().equals(id)) {
+                ingredient.remove(id);
+                return true;
+            }
+        }
+        return false;
     }
 
 

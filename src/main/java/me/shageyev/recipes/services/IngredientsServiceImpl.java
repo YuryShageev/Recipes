@@ -31,6 +31,7 @@ public class IngredientsServiceImpl implements IngredientsService{
     public int addIngredient(Ingredients ingredients) {
         recipeService.addIngredientsToRecipe(ingredients);
         ingredient.put(ingredientId, ingredients);
+        saveToFile();
         return ingredientId++;
     }
 

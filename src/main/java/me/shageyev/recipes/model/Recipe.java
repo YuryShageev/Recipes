@@ -20,5 +20,6 @@ public class Recipe {
     private int cookingTime;
     @NotEmpty
     private List<Ingredients> ingredients;
+    @NotEmpty
     private List<String> cookingSteps;
 }

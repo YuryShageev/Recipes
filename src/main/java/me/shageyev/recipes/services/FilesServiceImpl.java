@@ -37,7 +37,8 @@ public class FilesServiceImpl implements FilesService {
         }
     }
 
-    private boolean cleanDataFile() {
+    @Override
+    public boolean cleanDataFile() {
         try {
             Path path = Path.of(dataFilePath, dataFileName);
             Files.deleteIfExists(path);

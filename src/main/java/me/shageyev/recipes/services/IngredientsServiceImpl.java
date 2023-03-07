@@ -3,7 +3,9 @@ package me.shageyev.recipes.services;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import me.shageyev.recipes.exceptions.FileProcessingException;
 import me.shageyev.recipes.model.Ingredients;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
@@ -18,15 +20,15 @@ public class IngredientsServiceImpl implements IngredientsService{
     private final FilesService filesService;
     private static Integer ingredientId = 0;
 
+    @Value("ingredient.json")
+    private String dataFileNameIngredient;
+
     public IngredientsServiceImpl(RecipeService recipeService, FilesService filesService) {
         this.recipeService = recipeService;
         this.filesService = filesService;
     }
 
-    @PostConstruct
-    private void init() {
-        readFromFile();
-    }
+
 @Override
     public int addIngredient(Ingredients ingredients) {
         recipeService.addIngredientsToRecipe(ingredients);
@@ -71,22 +73,27 @@ public class IngredientsServiceImpl implements IngredientsService{
         return false;
     }
 
+    @PostConstruct
+    private void init() {
+        readFromFile();
+    }
+
     private void saveToFile() {
         try {
             String json = new ObjectMapper().writeValueAsString(ingredient);
-            filesService.saveToFile(json);
+            filesService.saveToFile(json, dataFileNameIngredient);
         } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
+            throw new FileProcessingException("Не удалось сохранить");
         }
     }
 
     private void readFromFile() {
         try {
-            String json = filesService.readFromFile();
+            String json = filesService.readFromFile(dataFileNameIngredient);
             ingredient = new ObjectMapper().readValue(json, new TypeReference<Map<Integer, Ingredients>>() {
             });
         } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
+            throw new FileProcessingException("Не удалось прочитать");
         }
     }
 

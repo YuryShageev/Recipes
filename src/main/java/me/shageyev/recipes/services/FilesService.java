@@ -1,9 +1,9 @@
 package me.shageyev.recipes.services;
 
 public interface FilesService {
-    boolean saveToFile(String json);
+    boolean saveToFile(String json, String name);
 
-    String readFromFile();
+    String readFromFile( String name);
 
-    boolean cleanDataFile();
+    boolean cleanDataFile(String dataFileName);
 }

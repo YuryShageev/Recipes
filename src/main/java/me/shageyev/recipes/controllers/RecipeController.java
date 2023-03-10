@@ -46,11 +46,7 @@ public class RecipeController {
             summary = "Добавление рецепта",
             description = "Важно внести три параметра, список инредиентов и список шагов!"
     )
-    @Parameters(value = {
-            @Parameter(name = "name", example = "Хот-Дог"),
-            @Parameter(name = "cookingTime", example = "10"),
-            @Parameter(name = "measuringUnit", example = "мин"),
-    })
+
     @ApiResponses(value = {
             @ApiResponse(
                     responseCode = "200",

@@ -68,7 +68,7 @@ public class IngredientsServiceImpl implements IngredientsService {
         return false;
     }
 
-//    @PostConstruct
+    @PostConstruct
     private void init() {
         readFromFile();
     }

@@ -11,7 +11,7 @@ import java.nio.file.Path;
 @Service
 public class FilesServiceImpl implements FilesService {
 
-    @Value("${path.to.data.file}")
+    @Value("${path.to.files}")
     private String dataFilePath;
 
 

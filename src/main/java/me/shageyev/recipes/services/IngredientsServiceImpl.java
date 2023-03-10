@@ -12,44 +12,37 @@ import javax.annotation.PostConstruct;
 import java.util.*;
 
 @Service
-public class IngredientsServiceImpl implements IngredientsService{
-    public final RecipeService recipeService;
+public class IngredientsServiceImpl implements IngredientsService {
 
     private static Map<Integer, Ingredients> ingredient = new TreeMap<>();
 
     private final FilesService filesService;
     private static Integer ingredientId = 0;
 
-    @Value("ingredient.json")
+    @Value("${name.of.ingredient.file}")
     private String dataFileNameIngredient;
 
-    public IngredientsServiceImpl(RecipeService recipeService, FilesService filesService) {
-        this.recipeService = recipeService;
+    public IngredientsServiceImpl(FilesService filesService) {
         this.filesService = filesService;
     }
 
 
-@Override
-    public int addIngredient(Ingredients ingredients) {
-        recipeService.addIngredientsToRecipe(ingredients);
+    @Override
+    public Ingredients addIngredient(Ingredients ingredients) {
         ingredient.put(ingredientId, ingredients);
         saveToFile();
-        return ingredientId++;
+        ingredientId = ++ingredientId;
+        return ingredients;
     }
 
     @Override
     public Ingredients getIngredients(int ingredientId) {
-            return ingredient.get(ingredientId);
+        return ingredient.get(ingredientId);
     }
 
     @Override
-    public List<Ingredients> getAllIngredients() {
-        List<Ingredients> ingredientsList = new ArrayList<>();
-        for (Map.Entry<Integer, Ingredients> looper : ingredient.entrySet()) {
-            Ingredients ingredients = looper.getValue();
-            ingredientsList.add(ingredients);
-        }
-        return ingredientsList;
+    public Collection<Ingredients> getAllIngredients() {
+        return ingredient.values();
     }
 
     @Override
@@ -57,11 +50,13 @@ public class IngredientsServiceImpl implements IngredientsService{
         for (Map.Entry<Integer, Ingredients> ingredientsEntry : ingredient.entrySet()) {
             if (ingredientsEntry.getKey().equals(id)) {
                 ingredient.put(id, ingredients);
+                saveToFile();
                 return ingredient.get(id);
             }
         }
         return null;
     }
+
     @Override
     public boolean deleteIngredientsById(int id) {
         for (Map.Entry<Integer, Ingredients> ingredientsEntry : ingredient.entrySet()) {

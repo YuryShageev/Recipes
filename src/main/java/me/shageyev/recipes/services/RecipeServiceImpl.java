@@ -21,7 +21,7 @@ public class RecipeServiceImpl implements RecipeService {
     private final FilesService filesService;
     private static Integer recipeId = 0;
 
-    @Value("recipe.json")
+    @Value("${name.of.recipe.file}")
     String dataFileNameRecipe;
 
     public RecipeServiceImpl(FilesService filesService) {
@@ -30,7 +30,9 @@ public class RecipeServiceImpl implements RecipeService {
 
     @Override
     public Recipe addRecipe(Recipe recipe) {
-        recipeMap.put(recipeId++, recipe);
+        recipeMap.put(recipeId, recipe);
+        saveToFile();
+        recipeId = ++recipeId;
         return recipe;
     }
 
@@ -54,6 +56,7 @@ public class RecipeServiceImpl implements RecipeService {
         for (Map.Entry<Integer, Recipe> recipeEntry : recipeMap.entrySet()) {
             if (recipeEntry.getKey().equals(id)) {
                 recipeMap.put(id, recipe);
+                saveToFile();
                 return recipeMap.get(id);
             }
         }

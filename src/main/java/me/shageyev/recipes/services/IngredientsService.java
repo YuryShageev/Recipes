@@ -2,6 +2,7 @@ package me.shageyev.recipes.services;
 
 import me.shageyev.recipes.model.Ingredients;
 
+import java.util.Collection;
 import java.util.List;
 
 public interface IngredientsService {
@@ -9,11 +10,11 @@ public interface IngredientsService {
 
 
 
-    int addIngredient(Ingredients ingredients);
+    Ingredients addIngredient(Ingredients ingredients);
 
     Ingredients getIngredients(int ingredientId);
 
-    List<Ingredients> getAllIngredients();
+    Collection<Ingredients> getAllIngredients();
 
 
     Ingredients editIngredientsById(int id, Ingredients ingredients);

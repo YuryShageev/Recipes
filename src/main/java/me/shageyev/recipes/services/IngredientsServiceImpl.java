@@ -62,6 +62,7 @@ public class IngredientsServiceImpl implements IngredientsService {
         for (Map.Entry<Integer, Ingredients> ingredientsEntry : ingredient.entrySet()) {
             if (ingredientsEntry.getKey().equals(id)) {
                 ingredient.remove(id);
+                saveToFile();
                 return true;
             }
         }

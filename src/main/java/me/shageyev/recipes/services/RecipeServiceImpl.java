@@ -68,6 +68,7 @@ public class RecipeServiceImpl implements RecipeService {
         for (Map.Entry<Integer, Recipe> recipeEntry : recipeMap.entrySet()) {
             if (recipeEntry.getKey().equals(id)) {
                 recipeMap.remove(id);
+                saveToFile();
                 return true;
             }
         }

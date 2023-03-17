@@ -4,10 +4,7 @@ import me.shageyev.recipes.model.Ingredients;
 import me.shageyev.recipes.model.Recipe;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 
 @Service
 public class RecipeServiceImpl implements RecipeService {
@@ -17,13 +14,9 @@ public class RecipeServiceImpl implements RecipeService {
     private static final List<String> cookingSteps = new ArrayList<>();
     private static Integer recipeId = 0;
     @Override
-    public void addRecipe(String name, int cookingTime) {
-        String cookSteps = "Здесь временно ничего нет";
-        cookingSteps.add(cookSteps);
-
-        Recipe recipe = new Recipe(name, cookingTime, ingredientsList, cookingSteps);
+    public Recipe addRecipe(Recipe recipe) {
         recipeMap.put(recipeId++, recipe);
-        System.out.println(recipeMap);
+        return recipe;
     }
 
     @Override
@@ -36,9 +29,31 @@ public class RecipeServiceImpl implements RecipeService {
     }
 
     @Override
-    public Map<Integer, Recipe> getAllRecipes() {
+    public Collection<Recipe> getAllRecipes() {
 
-        return recipeMap;
+        return recipeMap.values();
+    }
+
+    @Override
+    public Recipe editRecipeById(int id, Recipe recipe) {
+        for (Map.Entry<Integer, Recipe> recipeEntry : recipeMap.entrySet()) {
+            if (recipeEntry.getKey().equals(id)) {
+                recipeMap.put(id, recipe);
+                return recipeMap.get(id);
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public boolean deleteRecipe(int id) {
+        for (Map.Entry<Integer, Recipe> recipeEntry : recipeMap.entrySet()) {
+            if (recipeEntry.getKey().equals(id)) {
+                recipeMap.remove(id);
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override

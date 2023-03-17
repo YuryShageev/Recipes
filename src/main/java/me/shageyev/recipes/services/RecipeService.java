@@ -3,16 +3,21 @@ package me.shageyev.recipes.services;
 import me.shageyev.recipes.model.Ingredients;
 import me.shageyev.recipes.model.Recipe;
 
+import java.util.Collection;
 import java.util.Map;
 
 public interface RecipeService {
 
 
-    void addRecipe(String name, int cookingTime);
+    Recipe addRecipe(Recipe recipe);
 
     Recipe getRecipe(int recipeId);
 
-    Map<Integer, Recipe> getAllRecipes();
+    Collection<Recipe> getAllRecipes();
+
+    Recipe editRecipeById(int id, Recipe recipe);
+
+    boolean deleteRecipe(int id);
 
     void addIngredientsToRecipe(Ingredients ingredients);
 }

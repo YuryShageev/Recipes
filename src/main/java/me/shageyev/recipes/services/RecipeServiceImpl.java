@@ -24,6 +24,11 @@ public class RecipeServiceImpl implements RecipeService {
     @Value("${name.of.recipe.file}")
     String dataFileNameRecipe;
 
+    @Override
+    public String getDataFileNameRecipe() {
+        return dataFileNameRecipe;
+    }
+
     public RecipeServiceImpl(FilesService filesService) {
         this.filesService = filesService;
     }
@@ -102,5 +107,10 @@ public class RecipeServiceImpl implements RecipeService {
         } catch (JsonProcessingException e) {
             throw new FileProcessingException("Файл не прочитан");
         }
+    }
+
+    @Override
+    public void getRecipeDataFile() {
+        filesService.getDataFile(dataFileNameRecipe);
     }
 }

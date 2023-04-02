@@ -9,6 +9,8 @@ import java.util.Map;
 public interface RecipeService {
 
 
+    String getDataFileNameRecipe();
+
     Recipe addRecipe(Recipe recipe);
 
     Recipe getRecipe(int recipeId);
@@ -20,4 +22,6 @@ public interface RecipeService {
     boolean deleteRecipe(int id);
 
     void addIngredientsToRecipe(Ingredients ingredients);
+
+    void getRecipeDataFile();
 }

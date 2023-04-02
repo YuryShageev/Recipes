@@ -4,6 +4,7 @@ import me.shageyev.recipes.exceptions.FileProcessingException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -39,6 +40,11 @@ public class FilesServiceImpl implements FilesService {
         } else {
             return "{ }";
         }
+    }
+
+    @Override
+    public File getDataFile(String dataFileName) {
+        return new File(dataFilePath + "/" + dataFileName);
     }
 
     @Override

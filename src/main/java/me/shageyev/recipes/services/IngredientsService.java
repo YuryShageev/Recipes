@@ -8,7 +8,7 @@ import java.util.List;
 public interface IngredientsService {
 
 
-
+    String getDataFileNameIngredient();
 
     Ingredients addIngredient(Ingredients ingredients);
 
@@ -20,4 +20,6 @@ public interface IngredientsService {
     Ingredients editIngredientsById(int id, Ingredients ingredients);
 
     boolean deleteIngredientsById(int id);
+
+    void getIngredientDataFile();
 }

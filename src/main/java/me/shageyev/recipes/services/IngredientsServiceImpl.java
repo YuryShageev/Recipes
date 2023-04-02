@@ -21,6 +21,10 @@ public class IngredientsServiceImpl implements IngredientsService {
 
     @Value("${name.of.ingredient.file}")
     private String dataFileNameIngredient;
+@Override
+    public String getDataFileNameIngredient() {
+        return dataFileNameIngredient;
+    }
 
     public IngredientsServiceImpl(FilesService filesService) {
         this.filesService = filesService;
@@ -91,6 +95,11 @@ public class IngredientsServiceImpl implements IngredientsService {
         } catch (JsonProcessingException e) {
             throw new FileProcessingException("Не удалось прочитать");
         }
+    }
+
+    @Override
+    public void getIngredientDataFile() {
+        filesService.getDataFile(dataFileNameIngredient);
     }
 
 

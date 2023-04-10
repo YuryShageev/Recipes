@@ -1,0 +1,12 @@
+{
+  "0": {
+    "productName": "Творог",
+    "amount": 350,
+    "measuringUnit": "г"
+  },
+  "1": {
+    "productName": "Куриное яйцо",
+    "amount": 2,
+    "measuringUnit": "шт"
+  }
+}

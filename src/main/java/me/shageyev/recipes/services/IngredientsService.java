@@ -2,16 +2,24 @@ package me.shageyev.recipes.services;
 
 import me.shageyev.recipes.model.Ingredients;
 
+import java.util.Collection;
 import java.util.List;
 
 public interface IngredientsService {
 
 
-    void addIngredient(String name, int quantity, String measuringUnit);
+    String getDataFileNameIngredient();
 
-//    void addIngredients(String name, int quantity, String measuringUnit);
+    Ingredients addIngredient(Ingredients ingredients);
 
     Ingredients getIngredients(int ingredientId);
 
-    List<Ingredients> getAllIngredients();
+    Collection<Ingredients> getAllIngredients();
+
+
+    Ingredients editIngredientsById(int id, Ingredients ingredients);
+
+    boolean deleteIngredientsById(int id);
+
+    void getIngredientDataFile();
 }

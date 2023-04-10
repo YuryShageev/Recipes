@@ -48,6 +48,15 @@ public class FilesServiceImpl implements FilesService {
     }
 
     @Override
+    public Path createFile(String suffix) throws IOException {
+        try {
+            return Files.createTempFile(Path.of(dataFilePath), "tempFile", suffix);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
     public boolean cleanDataFile(String dataFileName) {
         try {
             Path path = Path.of(dataFilePath, dataFileName);

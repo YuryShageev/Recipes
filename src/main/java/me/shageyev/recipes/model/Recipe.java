@@ -1,9 +1,6 @@
 package me.shageyev.recipes.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
@@ -20,6 +17,8 @@ public class Recipe {
     private String name;
     @Positive
     private int cookingTime;
+    @NonNull
+    private String time = "минут";
     @NotEmpty
     private List<Ingredients> ingredients;
     @NotEmpty

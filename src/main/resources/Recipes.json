@@ -2,7 +2,7 @@
   {
     "name": "Сырники из творога",
     "cookingTime": 30,
-    "measuringUnit": "мин",
+    "time": "минут",
     "ingredients": [
       {
         "productName": "Творог",
@@ -37,7 +37,7 @@
   {
     "name": "Салат из красной фасоли с творожным сыром, красным луком и сезонным салатом",
     "cookingTime": 7,
-    "measuringUnit": "мин",
+    "time": "минут",
     "ingredients": [
       {
         "productName": "Специи",
@@ -89,7 +89,7 @@
   {
     "name": "Чечевичный суп с мятой",
     "cookingTime": 30,
-    "measuringUnit": "мин",
+    "time": "минут",
     "ingredients": [
       {
         "productName": "Красная чечевица",
@@ -152,7 +152,7 @@
   {
     "name": "Салат с креветками и кунжутом",
     "cookingTime": 20,
-    "measuringUnit": "мин",
+    "time": "минут",
     "ingredients": [
       {
         "productName": "Помидоры ",
@@ -201,7 +201,7 @@
   {
     "name": "Творожные пончики в сахарной пудре",
     "cookingTime": 40,
-    "measuringUnit": "мин",
+    "time": "минут",
     "ingredients": [
       {
         "productName": "Творог",

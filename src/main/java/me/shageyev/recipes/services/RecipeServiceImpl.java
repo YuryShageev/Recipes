@@ -10,12 +10,16 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
 import java.util.*;
 
 @Service
 public class RecipeServiceImpl implements RecipeService {
 
-    private static Map<Integer, Recipe> recipeMap = new TreeMap<>();
+    private static Map<Integer, Recipe> recipeMap = new HashMap<>();
     private static final List<Ingredients> ingredientsList = new ArrayList<>();
     private static final List<String> cookingSteps = new ArrayList<>();
     private final FilesService filesService;
@@ -35,9 +39,8 @@ public class RecipeServiceImpl implements RecipeService {
 
     @Override
     public Recipe addRecipe(Recipe recipe) {
-        recipeMap.put(recipeId, recipe);
+        recipeMap.put(recipeId + 1, recipe);
         saveToFile();
-        recipeId = ++recipeId;
         return recipe;
     }
 
@@ -87,7 +90,11 @@ public class RecipeServiceImpl implements RecipeService {
 
     @PostConstruct
     private void init() {
-        readFromFile();
+        try {
+            readFromFile();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void saveToFile() {
@@ -99,18 +106,39 @@ public class RecipeServiceImpl implements RecipeService {
         }
     }
 
-    private void readFromFile() {
+    private void readFromFile() throws JsonProcessingException {
         try {
             String json = filesService.readFromFile(dataFileNameRecipe);
             recipeMap = new ObjectMapper().readValue(json, new TypeReference<Map<Integer, Recipe>>() {
             });
         } catch (JsonProcessingException e) {
-            throw new FileProcessingException("Файл не прочитан");
+            throw e;
         }
     }
+
 
     @Override
     public void getRecipeDataFile() {
         filesService.getDataFile(dataFileNameRecipe);
+
     }
+
+    @Override
+    public Path createEditedRecipeFile() throws IOException {
+        List<Recipe> allRecipes = new ArrayList<Recipe>(recipeMap.values());
+        Path path = filesService.createFile("recipeEditedFile");
+        for (Recipe recipe : allRecipes) {
+            try (Writer writer = Files.newBufferedWriter(path, StandardOpenOption.APPEND)) {
+                writer.append(recipe.getName() + "\n" + "Время приготовления: " + recipe.getCookingTime() + recipe.getTime() + ". " + "\n"
+                        + recipe.getIngredients() + "\n" + "Инструкция приготовления: " + "\n" + recipe.getSteps());
+            }
+        }
+        return path;
+    }
+
+//    public void downloadTxtFilesFromOutputStream(OutputStream outputStream) throws IOException {
+//        try (BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(outputStream))) {
+//            String line = writer.;
+//        }
+//    }
 }

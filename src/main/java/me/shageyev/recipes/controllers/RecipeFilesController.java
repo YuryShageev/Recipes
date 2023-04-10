@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 @RestController
 @RequestMapping("/recipeFiles")
@@ -40,6 +42,25 @@ public class RecipeFilesController {
             return ResponseEntity.noContent().build();
         }
 
+    }
+
+    @GetMapping("/txtRecipe")
+    public ResponseEntity<Object> downloadTxtRecipe() throws IOException {
+        try {
+            Path path = recipeService.createEditedRecipeFile();
+            if (Files.size(path) != 0) {
+                InputStreamResource resource = new InputStreamResource(new FileInputStream(path.toFile()));
+                return ResponseEntity.ok().contentType(MediaType.TEXT_HTML)
+                        .contentLength(Files.size(path))
+                        .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + "- recipeList.html\"")
+                        .body(resource);
+            } else {
+                return ResponseEntity.noContent().build();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            return ResponseEntity.internalServerError().body(e.toString());
+        }
     }
 
     @PostMapping(value = "/import", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)

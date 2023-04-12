@@ -129,7 +129,7 @@ public class RecipeServiceImpl implements RecipeService {
         Path path = filesService.createFile("recipeEditedFile");
         for (Recipe recipe : allRecipes) {
             try (Writer writer = Files.newBufferedWriter(path, StandardOpenOption.APPEND)) {
-                writer.append(recipe.getName() + "\n" + "Время приготовления: " + recipe.getCookingTime() + recipe.getTime() + ". " + "\n"
+                writer.append(recipe.getName() + "\n" + "Время приготовления: " + recipe.getCookingTime() + " " + recipe.getTime() + ". " + "\n"
                         + recipe.getIngredients() + "\n" + "Инструкция приготовления: " + "\n" + recipe.getSteps());
             }
         }

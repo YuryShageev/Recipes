@@ -133,7 +133,7 @@ public class RecipeServiceImpl implements RecipeService {
         for (Recipe recipe : recipeMap.values()) {
             try (Writer writer = Files.newBufferedWriter(path, StandardOpenOption.APPEND)) {
                 writer.append(recipe.getName() + "\r\n" + "Время приготовления: " + recipe.getCookingTime() + " " + recipe.getTime() + ". " + "\r\n"
-                        + recipe.getIngredients() + "\r\n" + "Инструкция приготовления: " + "\r\n" + recipe.getSteps());
+                        + recipe.getIngredients() + "\r\n" + "Инструкция приготовления: " + "\r\n" + recipe.getSteps() + "\r\n");
             }
         }
         return path;

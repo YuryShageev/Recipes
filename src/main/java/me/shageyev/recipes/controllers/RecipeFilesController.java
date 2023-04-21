@@ -50,9 +50,9 @@ public class RecipeFilesController {
             Path path = recipeService.createEditedRecipeFile();
             if (Files.size(path) != 0) {
                 InputStreamResource resource = new InputStreamResource(new FileInputStream(path.toFile()));
-                return ResponseEntity.ok().contentType(MediaType.TEXT_PLAIN)
+                return ResponseEntity.ok().contentType(MediaType.MULTIPART_FORM_DATA)
                         .contentLength(Files.size(path))
-                        .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + "- recipeList.html\"")
+                        .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + "- recipeList.txt\"")
                         .body(resource);
             } else {
                 return ResponseEntity.noContent().build();

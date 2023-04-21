@@ -24,4 +24,10 @@ public class Ingredients {
     @NotEmpty
     private String measuringUnit;
 
+    @Override
+    public String toString() {
+        return getProductName() + " - " +
+                 getAmount() +
+                " " + getMeasuringUnit() + "\n";
+    }
 }

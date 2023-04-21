@@ -22,5 +22,15 @@ public class Recipe {
     @NotEmpty
     private List<Ingredients> ingredients;
     @NotEmpty
-    private List<String> steps;
+    private List<Steps> steps;
+
+    @Override
+    public String toString() {
+        return getName() + "\n" +
+                "Время приготовления: " + getCookingTime() + " " +
+                getTime() + "\n" +
+                "Ингредиенты: " + getIngredients() + "\n" +
+                "Инструкция по приготовлению: " + getSteps() +
+                "\n" + "\n";
+    }
 }

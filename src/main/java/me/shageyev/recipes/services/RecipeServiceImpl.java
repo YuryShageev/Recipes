@@ -109,8 +109,11 @@ public class RecipeServiceImpl implements RecipeService {
     private void readFromFile() throws JsonProcessingException {
         try {
             String json = filesService.readFromFile(dataFileNameRecipe);
-            recipeMap = new ObjectMapper().readValue(json, new TypeReference<Map<Integer, Recipe>>() {
+            List<Recipe> recipeList = new ObjectMapper().readValue(json, new TypeReference<List<Recipe>>() {
             });
+            for (Recipe recipe: recipeList) {
+                recipeMap.put(++recipeId, recipe);
+            }
         } catch (JsonProcessingException e) {
             throw e;
         }
@@ -125,12 +128,12 @@ public class RecipeServiceImpl implements RecipeService {
 
     @Override
     public Path createEditedRecipeFile() throws IOException {
-        List<Recipe> allRecipes = new ArrayList<Recipe>(recipeMap.values());
+//        List<Recipe> allRecipes = new ArrayList<Recipe>(recipeMap.values());
         Path path = filesService.createFile("recipeEditedFile");
-        for (Recipe recipe : allRecipes) {
+        for (Recipe recipe : recipeMap.values()) {
             try (Writer writer = Files.newBufferedWriter(path, StandardOpenOption.APPEND)) {
-                writer.append(recipe.getName() + "\n" + "Время приготовления: " + recipe.getCookingTime() + " " + recipe.getTime() + ". " + "\n"
-                        + recipe.getIngredients() + "\n" + "Инструкция приготовления: " + "\n" + recipe.getSteps());
+                writer.append(recipe.getName() + "\r\n" + "Время приготовления: " + recipe.getCookingTime() + " " + recipe.getTime() + ". " + "\r\n"
+                        + recipe.getIngredients() + "\r\n" + "Инструкция приготовления: " + "\r\n" + recipe.getSteps());
             }
         }
         return path;
